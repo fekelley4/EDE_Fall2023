@@ -114,6 +114,9 @@ head(df,2) #show the first 6 rows of df
 #If you know the number of the column you want you can refer to that to access column
 df[c(1,2,3),]$car_speed
 
+df2<- as.data.frame(df$car_speed)[c(1,2,3),]
+
+
 #you could also use this notation to delete columns
 df <- df[,-2]
 df
