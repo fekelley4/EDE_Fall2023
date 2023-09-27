@@ -31,13 +31,28 @@ The completed exercise is due on Thursday, Sept 28th @ 5:00pm.
 2. Apply the `glimpse()` function to reveal the dimensions, column names, and structure of each dataset. 
 
 ```{r setup, message = FALSE}
-#1a 
+#1a Loading the necessary packages into the session. 
 
-#1b 
+library(tidyverse)
+library(lubridate)
+#install.packages("here")
+library(here)
+library(dplyr)
 
-#1c 
+#1b Checking the working directory.  
+getwd()
 
-#2 
+#1c Loading and naming data sets. 
+EPAAir_2018 <- read.csv("./Data/Raw/EPAair_O3_NC2018_raw.csv", stringsAsFactors = TRUE)
+EPAAir_2019 <- read.csv("./Data/Raw/EPAair_O3_NC2019_raw.csv", stringsAsFactors = TRUE)
+EPAAir_P25_2018 <- read.csv("./Data/Raw/EPAair_PM25_NC2018_raw.csv", stringsAsFactors = TRUE)
+EPAAir_P25_2019 <- read.csv("./Data/Raw/EPAair_PM25_NC2019_raw.csv", stringsAsFactors = TRUE)
+
+#2 Producing the dimensions, column names, and structure of the four data sets. 
+glimpse(EPAAir_2018)
+glimpse(EPAAir_2019)
+glimpse(EPAAir_P25_2018)
+glimpse(EPAAir_P25_2019)
 
 ```
 
@@ -52,12 +67,33 @@ The completed exercise is due on Thursday, Sept 28th @ 5:00pm.
 
 6. Save all four processed datasets in the Processed folder. Use the same file names as the raw files but replace "raw" with "processed".
 
-```{r}
-#3
+```{r Processing Datasets, message = TRUE}
+#3 Date columns in data sets are converted to date objects. 
 
-#4
+EPAAir_2018$Date <- as.Date(EPAAir_2018$Date, format = "%m%d%Y") 
+EPAAir_2019$Date <- as.Date(EPAAir_2019$Date)
+EPAAir_P25_2018$Date <- as.Date(EPAAir_P25_2018$Date)
+EPAAir_P25_2019$Date <- as.Date(EPAAir_P25_2019$Date)
 
-#5
+EPAAir_2018
+EPAAir_2019
+EPAAir_P25_2018
+EPAAir_P25_2019
+
+#4 Selecting columns within the data set. 
+EPAAir_2018_select <- select(EPAAir_2018, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+EPAAir_2019_select <- select(EPAAir_2019, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+P25_2018_select <- select(EPAAir_P25_2018, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+P25_2019_select <- select(EPAAir_P25_2019, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+
+EPAAir_2018_select
+EPAAir_2019_select
+P25_2018_select
+P25_2019_select
+
+#5 Making all "AQS_Parameter_DESC" column values read "PM2.5"
+P25_2018_processed <- mutate(P25_2018_select, AQS_PARAMETER_DESC == "PM2.5")
+P25_2019_processed <- mutate(P25_2019_select, AQS_PARAMETER_DESC == "PM2.5")
 
 #6
 
