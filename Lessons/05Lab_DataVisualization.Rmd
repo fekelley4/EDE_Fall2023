@@ -93,8 +93,10 @@ Say we want to plot the number of records each month in the Peter/Paul lakes dat
 
 ```{r Plot the number of records by month}
 #What kind of values are months?
+class(PeterPaul.chem.nutrients$month)
 
 #List unique values
+unique(PeterPaul.chem.nutrients$month)
 
 #Plot how many Lake observations occur each month
 
