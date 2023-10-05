@@ -116,7 +116,7 @@ Tip:
 * Recall the discussion on factors in the previous section as it may be helpful here. 
 * R has a built-in variable called `month.abb` that returns a list of months;see <https://r-lang.com/month-abb-in-r-with-example>
 
-```{r Create boxplots, message=TRUE}
+```{r Create boxplots}
 #5 Creating separate boxplots for the desired variables. 
 
 # Creating a boxplot for temperature by month. 
@@ -152,7 +152,9 @@ PeterPaul_tn_plot
 
 # Chat GPT was utilized in this section for understanding and 
 # implementing the month.abb function.  
+```
 
+```{r Create combined boxplots, fig.width= 8, fig.height= 12}
 
 # Combining the three boxplots onto one graph. 
 PeterPaul_cowplot <- plot_grid(
@@ -160,14 +162,15 @@ PeterPaul_cowplot <- plot_grid(
   PeterPaul_tp_plot + theme(legend.position = "none"), 
   PeterPaul_tn_plot + theme(legend.position = "none"), 
   nrow = 3, align = "hv", rel_heights = c(1,1,1)) +
-  theme(axis.text = element_text(size = 10))
+  theme(axis.text = element_text(size = 14))
 
 # Extract one legend for the plot. 
 Legend_cowplot <- get_legend(PeterPaul_temp_plot)
 
 # Add legend to plot. 
 PeterPaul_cowplot <- plot_grid(PeterPaul_cowplot,
-                      Legend_cowplot, rel_widths = c(1,0.25)
+                      Legend_cowplot, 
+                      rel_widths = c(1,0.25)
 )
 
 PeterPaul_cowplot
