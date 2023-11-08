@@ -129,7 +129,6 @@ ggplot() +
   labs(title = "NWIS Gage Locations in Nebraska",
        subtitle = "Fiona Kelley") 
 
-
 ```
 
 
@@ -156,7 +155,7 @@ colnames(NE_SiteFlow)
 
 #16. Join the flow data to our NWIS gage location spatial dataframe
 gage_flow_sf_join <- NE_sites_sf %>% 
-  left_join(NE_SiteFlow, by = c("site_no" = "site_no"))
+  inner_join(NE_SiteFlow, by = c("site_no" = "site_no"))
 
 #17. Show the column names of the joined dataset
 colnames(gage_flow_sf_join)
@@ -178,11 +177,11 @@ Now we can examine where the flooding appears most acute by visualizing gage hei
 ggplot() +
   geom_sf(data = NE_Counties) + 
   geom_sf(data = gage_flow_sf_join,  
-          aes(color= gage_flow_sf_join$gage_ht), 
-          shape='x')+ 
+          aes(size= gage_flow_sf_join$gage_ht), 
+          shape='x', color = "hotpink")+ 
   labs(title = "NWIS Gage Locations in Nebraska by Height",
        subtitle = "Fiona Kelley", 
-       color = "Gage Height") 
+       size = "Gage Height (meters)") 
 
 ```
 
@@ -213,6 +212,7 @@ ggplot() +
           shape='x')+ 
   labs(title = "NWIS Gage Locations in Nebraska in UTM Zone 14N",
        subtitle = "Fiona Kelley") 
+
 
 ```
 
