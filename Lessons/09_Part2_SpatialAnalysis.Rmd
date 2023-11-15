@@ -130,9 +130,7 @@ mapView(counties_sf, zcol = "AWATER")
 head(huc8_sf)
 
 #View the data as a map, colored by the acreage in each
-
-
-
+#color col.regions
 
 ```
 
